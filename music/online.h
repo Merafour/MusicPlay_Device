@@ -51,6 +51,8 @@ extern const uint8_t* get_music(void);
 #define PROTO_PAUSE 				0x65    // pause
 #define PROTO_NEXT   				0x66    // next play
 #define PROTO_LAST   				0x67    // last play
+#define PROTO_VOL_GET   			0x68    // get volume
+#define PROTO_VOL_SET 				0x69    // set volume
 
 #ifdef __cplusplus
 }

@@ -13,6 +13,7 @@
 
 
 #include "online.h"
+#include "music.h"
 
 #include <stdarg.h>
 #include <string.h>
@@ -491,6 +492,32 @@ uint8_t online_update(void)
 			}
 
 			cout_word(sum);
+			break;
+		// fetch CRC of the entire flash area
+		//
+		// command:			PROTO_VOL_GET/EOC
+		// reply:			<crc:4>/INSYNC/OK
+		//
+		case PROTO_VOL_GET:
+			// expect EOC
+			if (!wait_for_eoc(2)) {
+				goto cmd_bad;
+			}
+            uint8_t _vol=0;
+            _vol = Music::get_volume();
+            cout(&_vol, 1);
+			break;
+		case PROTO_VOL_SET:
+
+            c = cin_wait(1000);
+            if (c < 0) {
+                goto cmd_bad;
+            }
+			// expect EOC
+			if (!wait_for_eoc(2)) {
+				goto cmd_bad;
+			}
+            Music::set_volume(c);
 			break;
         case PROTO_STANDBY:
             for (unsigned p = 0; p < 512; p += 128) 

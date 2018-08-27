@@ -191,6 +191,15 @@ public:
 	virtual void play(void);
 	virtual void play(const musical_t *_melody);
 	virtual void test(void);
+    static void set_volume(uint8_t _vol)
+    {
+        if(_vol>100) _vol=100;
+        g_volume = _vol;
+    }
+    static uint8_t get_volume(void)
+    {
+        return g_volume;
+    }
     void pause(void)
     {
         _pause = 1;
