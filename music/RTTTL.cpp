@@ -56,14 +56,19 @@ void RTTTL::test(void)
 		delay_ms(2000);
 #else
 		play(&musicals[2]); // 2月亮代表我的心
+		if(1==_pause) return; // pause
 		delay_ms(2000);
 		play(&musicals[7]); // 天空之城-赵海洋[质谱]
+		if(1==_pause) return; // pause
 		delay_ms(2000);
 		play(&musicals[5]); // you yi tian chang di jiu 友谊天长地久
+		if(1==_pause) return; // pause
 		delay_ms(2000);
 		play(&musicals[4]); // 知道不知道
+		if(1==_pause) return; // pause
 		delay_ms(2000);
 		play(&musicals[1]); //1 虫儿飞
+		if(1==_pause) return; // pause
 		delay_ms(2000);
 #endif
 	}
@@ -75,7 +80,7 @@ void RTTTL::Init(void)
 }
 void RTTTL::play(void)
 {
-//    _pause = 0;
+    _pause = 0;
 //    play(&musical);
     Music::play();
 }
@@ -193,6 +198,7 @@ void RTTTL::play(const char *_rtttl)
 	uint16_t count=0;
 	uint16_t index=0;
 	tone_t _note;
+	_pause = 0;
 	count=decode_rtttl(_rtttl);
 	// play
 	for(index=0; index<count; index++)
@@ -219,13 +225,14 @@ void RTTTL::play_tone(const uint8_t _tone, const uint16_t _beat, const uint16_t 
         }
         speaker.volume_update(_tone, _volume);
         delay = _beat+_hold-i;
-        for(i=delay; i>=20; i-=2)
+        for(i=delay; i>=6; i-=2)
         {
             speaker.volume_update(_tone, ((float)_volume*i)/delay);
             delay_ms(2);
         }
         speaker.volume_update(_tone, 0);
-        delay_ms(20+i);
+        //delay_ms(10+i);
+		delay_ms(i);
     }
 }
 

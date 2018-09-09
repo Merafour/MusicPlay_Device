@@ -237,6 +237,7 @@ void _StartDefaultTask(void const * argument)
               }
               break;
           case PROTO_PLAY:   // play
+			  _rtttl.pause();
               break;
           case PROTO_PAUSE:  // pause
               _rtttl.pause();
@@ -259,9 +260,10 @@ void _StartMusicTask(void const * argument)
 {
   /* USER CODE BEGIN StartMusicTask */
   /* Infinite loop */
-#if 0
+#if 1
 	_rtttl.Init();
 	_rtttl.test();
+	//_rtttl.play();
 #endif
 
   /* Infinite loop */
